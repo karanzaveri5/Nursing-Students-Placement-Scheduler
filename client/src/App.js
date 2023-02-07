@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "@mui/system";
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Div100vh from "react-div-100vh";
 import axios from "axios";

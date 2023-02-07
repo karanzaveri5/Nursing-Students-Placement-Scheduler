@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import {
     Navigate, Outlet, Route, Routes, useLocation
 } from "react-router-dom";
 import Login from "./components/auth/login";
+import StudentLogin from "./components/auth/studentlogin";
 import Hospitals from "./components/hospitals";
 import AddEditHospital from "./components/hospitals/add-edit-hospital";
 import Schools from "./components/schools";
@@ -35,10 +36,12 @@ function RequireAuth() {
 
 export default function AppRoutes() {
     const { userData } = useContext(UserContext);
-
+ 
     return (
         <Routes>
             <Route path="/login" element={userData.user ? <Navigate to="/students" replace /> : <Login />} />
+            <Route path="/studentlogin" element={<StudentLogin />} />
+
             <Route element={<RequireAuth />}>
                 <Route path="/students" element={<Outlet />}>
                     <Route path="" element={<Students />} />

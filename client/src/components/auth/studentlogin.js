@@ -21,7 +21,7 @@ import { UserContext } from "../../services";
 import Logo from "../../images/logo.png";
 import { setAuthTokenToLocalStorage } from "../../axios";
 
-export default function Login() {
+export default function StudentLogin() {
     const { userData, setUserData } = useContext(UserContext);
     const navigate = useNavigate();
 
@@ -57,116 +57,11 @@ export default function Login() {
         }
     };
 
-    const handleStudentSubmit = async () => {
-        try {
-            const username = usernameRef.current.value();
-            const password = passwordRef.current.value();
-
-            const isUsernameValid = ValidateUtils.validateUsername(username, usernameRef.current);
-            const isPasswordValid = ValidateUtils.validatePassword(password, passwordRef.current);
-
-            if (!isUsernameValid || !isPasswordValid) {
-                throw new Error();
-            }
-
-            const res = await axios.post("/user/studentlogin", { username, password });
-            const { token, user } = res.data;
-            setUserData({ token, user, fetched: true });
-            setAuthTokenToLocalStorage(token);
-            ShowSnackbarAlert({ message: "Logged in successfully" });
-        } catch (err) {
-            ShowSnackbarAlert({ message: err.response.data.message, severity: "error" });
-        }
-    };
-
     const handleKeyDown = useCallback((event) => {
         if (event.key === "Enter") {
             btnRef.current.click();
         }
     });
-
-    function renderRegisterOption() {
-        // return (
-        //     <Typography
-        //             color="primary"
-        //             align="right"
-        //             sx={{
-        //                 textDecoration: "underline",
-        //                 mt: 3,
-        //                 cursor: "pointer",
-        //                 display: "inline-block",
-        //                 float: "right"
-        //             }}
-        //             onClick={() => { navigate("/register"); }}
-        //         >
-        //             Register
-        //         </Typography>
-        // )
-
-        return "";
-    }
-
-    function renderUsername() {
-        return (
-            <TextField
-                label="Username"
-                ref={usernameRef}
-                autoFocus
-                required
-                onKeyDown={handleKeyDown}
-                autoComplete="off"
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <AccountCircle />
-                        </InputAdornment>
-                    )
-                }}
-            />
-        );
-    }
-
-    function renderPassword() {
-        return (
-            <TextField
-                label="Password"
-                ref={passwordRef}
-                type="password"
-                autoComplete="off"
-                required
-                onKeyDown={handleKeyDown}
-                InputProps={{
-                    startAdornment: (
-                        <InputAdornment position="start">
-                            <LockIcon />
-                        </InputAdornment>
-                    )
-                }}
-            />
-        );
-    }
-
-    function renderSubmitBtn() {
-        return (
-            <LoadingButton
-                ref={btnRef}
-                label="Admin Login"
-                onClick={handleSubmit}
-                sx={{ mt: 3, width: 150 }}
-            />
-        );
-    }
-
-    function renderLoginBtn() {
-        return (
-            <LoadingButton
-                ref={btnRef}
-                label="Login"
-                onClick={handleStudentSubmit}
-                sx={{ mt: 3, width: 150 }}
-            />
-        );
-    }
 
     function renderTopBar() {
         return (
@@ -211,12 +106,6 @@ export default function Login() {
                 >
                     Login
                 </Typography>
-
-                {renderUsername()}
-                {renderPassword()}
-                {renderRegisterOption()}
-                {renderSubmitBtn()}
-                {renderLoginBtn()}
             </Paper>
         </Box>
     );

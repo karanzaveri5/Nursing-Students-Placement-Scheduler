@@ -1,7 +1,6 @@
 import { green, blue } from "@mui/material/colors";
 import Typography from "@mui/material/Typography";
 import Papa from "papaparse";
-import React from "react";
 
 export const FETCH_LIMIT = 50;
 
